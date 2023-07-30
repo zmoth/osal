@@ -14,6 +14,8 @@
  ********************************************************************/
 
 #include "osal.h"
+#include <winbase.h>
+#include <winerror.h>
 
 #define URESOLUTION 10
 
@@ -32,9 +34,19 @@ os_mutex_t * os_mutex_create (void)
    return CreateMutex (NULL, FALSE, NULL);
 }
 
-void os_mutex_lock (os_mutex_t * mutex)
+int32_t os_mutex_lock (os_mutex_t * mutex, uint32_t timeout)
 {
-   WaitForSingleObject (mutex, INFINITE);
+   DWORD ret = WaitForSingleObject (mutex, timeout);
+   switch (ret)
+   {
+   case WAIT_OBJECT_0:
+      return 0;
+   case WAIT_FAILED:
+      return -1;
+   case WAIT_TIMEOUT:
+      return 1;
+   }
+   return -1;
 }
 
 void os_mutex_unlock (os_mutex_t * mutex)

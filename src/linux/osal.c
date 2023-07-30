@@ -115,10 +115,11 @@ os_mutex_t * os_mutex_create (void)
    return mutex;
 }
 
-void os_mutex_lock (os_mutex_t * _mutex)
+int32_t os_mutex_lock (os_mutex_t * mutex, uint32_t timeout)
 {
    pthread_mutex_t * mutex = _mutex;
    pthread_mutex_lock (mutex);
+   return 0;
 }
 
 void os_mutex_unlock (os_mutex_t * _mutex)

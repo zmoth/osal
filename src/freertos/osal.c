@@ -61,9 +61,9 @@ os_mutex_t * os_mutex_create (void)
    return (os_mutex_t *)handle;
 }
 
-void os_mutex_lock (os_mutex_t * mutex)
+int32_t os_mutex_lock (os_mutex_t * mutex, uint32_t timeout)
 {
-   xSemaphoreTakeRecursive ((SemaphoreHandle_t)mutex, portMAX_DELAY);
+   return xSemaphoreTakeRecursive ((SemaphoreHandle_t)mutex, timeout);
 }
 
 void os_mutex_unlock (os_mutex_t * mutex)

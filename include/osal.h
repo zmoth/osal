@@ -98,7 +98,7 @@ os_thread_t * os_thread_create (
    void * arg);
 
 os_mutex_t * os_mutex_create (void);
-void os_mutex_lock (os_mutex_t * mutex);
+int32_t os_mutex_lock (os_mutex_t * mutex, uint32_t timeout);
 void os_mutex_unlock (os_mutex_t * mutex);
 void os_mutex_destroy (os_mutex_t * mutex);
 

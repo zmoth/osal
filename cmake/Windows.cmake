@@ -18,15 +18,17 @@ target_sources(osal PRIVATE
   src/windows/osal_log.c
   )
 
-target_compile_options(osal
-  PRIVATE
-  /W4
-  /WX
-  /wd4100
-  /wd4152
-  PUBLIC
-  /wd4200
-  )
+if(MSVC)
+  target_compile_options(osal
+    PRIVATE
+    /W4
+    /WX
+    /wd4100
+    /wd4152
+    PUBLIC
+    /wd4200
+    )
+endif()
 
 target_link_libraries(osal
   winmm)

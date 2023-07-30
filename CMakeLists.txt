@@ -20,6 +20,8 @@ project (OSAL VERSION 0.1.0)
 
 include(GetGitRevision)
 
+set(BUILD_TESTING OFF)
+
 # Default settings if this is the main project
 if (CMAKE_PROJECT_NAME STREQUAL OSAL)
   include(CTest)

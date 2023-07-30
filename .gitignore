@@ -2,6 +2,7 @@ build*/
 *~
 *#
 
+.cache
 .cproject
 .project
 .dir-locals.el

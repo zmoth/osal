@@ -21,6 +21,9 @@ extern "C" {
 #endif
 
 #include <assert.h>
+#include <intrin.h>
+#include <stdint.h>
+#include <minwindef.h>
 
 #define CC_PACKED_BEGIN __pragma (pack (push, 1))
 #define CC_PACKED_END   __pragma (pack (pop))
@@ -42,16 +45,16 @@ extern "C" {
 #define CC_FROM_BE64(x) ((uint64_t)_byteswap_uint64 (x))
 
 /* TODO */
-#define CC_ATOMIC_GET8(p)  (*p)
-#define CC_ATOMIC_GET16(p) (*p)
-#define CC_ATOMIC_GET32(p) (*p)
-#define CC_ATOMIC_GET64(p) (*p)
+#define CC_ATOMIC_GET8(p)  (*(p))
+#define CC_ATOMIC_GET16(p) (*(p))
+#define CC_ATOMIC_GET32(p) (*(p))
+#define CC_ATOMIC_GET64(p) (*(p))
 
 /* TODO */
-#define CC_ATOMIC_SET8(p, v)  ((*p) = (v))
-#define CC_ATOMIC_SET16(p, v) ((*p) = (v))
-#define CC_ATOMIC_SET32(p, v) ((*p) = (v))
-#define CC_ATOMIC_SET64(p, v) ((*p) = (v))
+#define CC_ATOMIC_SET8(p, v)  ((*(p)) = (v))
+#define CC_ATOMIC_SET16(p, v) ((*(p)) = (v))
+#define CC_ATOMIC_SET32(p, v) ((*(p)) = (v))
+#define CC_ATOMIC_SET64(p, v) ((*(p)) = (v))
 
 static uint8_t __inline cc_ctz (uint32_t x)
 {

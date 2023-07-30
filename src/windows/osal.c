@@ -15,7 +15,7 @@
 
 #include "osal.h"
 
-#define URESOLUTION  10
+#define URESOLUTION 10
 
 void * os_malloc (size_t size)
 {
@@ -110,7 +110,7 @@ os_tick_t os_tick_from_us (uint32_t us)
 
 void os_tick_sleep (os_tick_t tick)
 {
-   Sleep ((DWORD)(1000u * tick / os_get_frequency_tick()));
+   Sleep ((DWORD)(1000U * tick / os_get_frequency_tick()));
 }
 
 os_sem_t * os_sem_create (size_t count)
@@ -251,7 +251,9 @@ bool os_mbox_fetch (os_mbox_t * mbox, void ** msg, uint32_t time)
 
    *msg = mbox->msg[mbox->r++];
    if (mbox->r == mbox->size)
+   {
       mbox->r = 0;
+   }
 
    mbox->count--;
 
@@ -280,7 +282,9 @@ bool os_mbox_post (os_mbox_t * mbox, void * msg, uint32_t time)
 
    mbox->msg[mbox->w++] = msg;
    if (mbox->w == mbox->size)
+   {
       mbox->w = 0;
+   }
 
    mbox->count++;
 
@@ -297,8 +301,12 @@ void os_mbox_destroy (os_mbox_t * mbox)
    free (mbox);
 }
 
-static VOID CALLBACK
-timer_callback (UINT uTimerID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dw1, DWORD_PTR dw2)
+static VOID CALLBACK timer_callback (
+   UINT uTimerID,
+   UINT uMsg,
+   DWORD_PTR dwUser,
+   DWORD_PTR dw1,
+   DWORD_PTR dw2)
 {
    os_timer_t * timer = (os_timer_t *)dwUser;
 

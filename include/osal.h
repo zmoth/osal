@@ -88,7 +88,7 @@ uint32_t os_get_current_time_us (void);
 
 os_tick_t os_tick_current (void);
 os_tick_t os_tick_from_us (uint32_t us);
-void      os_tick_sleep (os_tick_t tick);
+void os_tick_sleep (os_tick_t tick);
 
 os_thread_t * os_thread_create (
    const char * name,

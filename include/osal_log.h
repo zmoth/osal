@@ -29,14 +29,14 @@ extern "C" {
 #define LOG_LEVEL_ERROR   0x03
 #define LOG_LEVEL_FATAL   0x04
 #define LOG_LEVEL_MASK    0x07
-#define LOG_LEVEL_GET(t)  (t & LOG_LEVEL_MASK)
+#define LOG_LEVEL_GET(t)  ((t)&LOG_LEVEL_MASK)
 
 /* Log states */
 #define LOG_STATE_ON  0x80
 #define LOG_STATE_OFF 0x00
 
 #define LOG_ENABLED(type)                                                      \
-   ((LOG_LEVEL_GET (type) >= LOG_LEVEL) && (type & LOG_STATE_ON))
+   ((LOG_LEVEL_GET (type) >= LOG_LEVEL) && ((type)&LOG_STATE_ON))
 
 /** Log a message if it is enabled */
 #define LOG(type, ...)                                                         \
@@ -64,16 +64,17 @@ extern "C" {
 #define LOG_FATAL(type, ...) LOG ((LOG_LEVEL_FATAL | type), __VA_ARGS__)
 
 #define OS_LOG_DEBUG(...) LOG ((LOG_LEVEL_DEBUG | LOG_STATE_ON), __VA_ARGS__)
-#define OS_LOG_INFO(...) LOG ((LOG_LEVEL_INFO | LOG_STATE_ON), __VA_ARGS__)
-#define OS_LOG_WARNING(...) LOG ((LOG_LEVEL_WARNING | LOG_STATE_ON), __VA_ARGS__)
+#define OS_LOG_INFO(...)  LOG ((LOG_LEVEL_INFO | LOG_STATE_ON), __VA_ARGS__)
+#define OS_LOG_WARNING(...)                                                    \
+   LOG ((LOG_LEVEL_WARNING | LOG_STATE_ON), __VA_ARGS__)
 #define OS_LOG_ERROR(...) LOG ((LOG_LEVEL_ERROR | LOG_STATE_ON), __VA_ARGS__)
 #define OS_LOG_FATAL(...) LOG ((LOG_LEVEL_FATAL | LOG_STATE_ON), __VA_ARGS__)
 
-#define LOG_DEBUG_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_DEBUG | type)
-#define LOG_INFO_ENABLED(type)    LOG_ENABLED (LOG_LEVEL_INFO | type)
-#define LOG_WARNING_ENABLED(type) LOG_ENABLED (LOG_LEVEL_WARNING | type)
-#define LOG_ERROR_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_ERROR | type)
-#define LOG_FATAL_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_FATAL | type)
+#define LOG_DEBUG_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_DEBUG | (type))
+#define LOG_INFO_ENABLED(type)    LOG_ENABLED (LOG_LEVEL_INFO | (type))
+#define LOG_WARNING_ENABLED(type) LOG_ENABLED (LOG_LEVEL_WARNING | (type))
+#define LOG_ERROR_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_ERROR | (type))
+#define LOG_FATAL_ENABLED(type)   LOG_ENABLED (LOG_LEVEL_FATAL | (type))
 
 #define OS_LOG_DEBUG_ENABLED()   LOG_ENABLED (LOG_LEVEL_DEBUG | LOG_STATE_ON)
 #define OS_LOG_INFO_ENABLED()    LOG_ENABLED (LOG_LEVEL_INFO | LOG_STATE_ON)

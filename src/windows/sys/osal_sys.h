@@ -20,6 +20,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+#include <stdbool.h>
 #include <windows.h>
 
 #define OS_WAIT_FOREVER INFINITE

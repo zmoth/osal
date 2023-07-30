@@ -31,6 +31,10 @@ extern "C" {
 #define LOG_LEVEL_MASK    0x07
 #define LOG_LEVEL_GET(t)  ((t)&LOG_LEVEL_MASK)
 
+#ifndef LOG_LEVEL
+#define LOG_LEVEL (LOG_LEVEL_DEBUG)
+#endif
+
 /* Log states */
 #define LOG_STATE_ON  0x80
 #define LOG_STATE_OFF 0x00

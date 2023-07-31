@@ -14,6 +14,7 @@
  ********************************************************************/
 
 #include "osal_log.h"
+#include "osal.h"
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -26,19 +27,19 @@ void os_log (uint8_t type, const char * fmt, ...)
    switch (LOG_LEVEL_GET (type))
    {
    case LOG_LEVEL_DEBUG:
-      printf ("[DEBUG] ");
+      printf ("[%u] [DEBUG] ", os_get_current_time_us());
       break;
    case LOG_LEVEL_INFO:
-      printf ("[INFO ] ");
+      printf ("[%u] [INFO ] ", os_get_current_time_us());
       break;
    case LOG_LEVEL_WARNING:
-      printf ("[WARN ] ");
+      printf ("[%u] [WARN ] ", os_get_current_time_us());
       break;
    case LOG_LEVEL_ERROR:
-      printf ("[ERROR] ");
+      printf ("[%u] [ERROR] ", os_get_current_time_us());
       break;
    case LOG_LEVEL_FATAL:
-      printf ("[FATAL] ");
+      printf ("[%u] [FATAL] ", os_get_current_time_us());
       break;
    default:
       break;
